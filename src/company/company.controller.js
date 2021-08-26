@@ -20,12 +20,12 @@ const create = async (req, res) => {
     password: bcrypt.hashSync(req.body.password, salt),
   });
   const token = jwt.sign({ id: entities.id }, process.env.TOKEN_SECRET);
-  res.status(201).json({ token: token });
+  res.status(201).json({ entities: entities });
 };
 
 const getAll = async (req, res) => {
   const companies = await companyModel.getAll();
-  return res.status(200).json(body);
+  return res.status(200).json(companies);
 };
 
 const upDate = async (req, res) => {
@@ -38,12 +38,22 @@ const upDate = async (req, res) => {
   }
   return res.status(404).json({ error: "Company not found" });
 };
+/* const upDate = async (req, res) => {
+  const company = await companyModel.upDate(req.params.id);
+  const id = req.params.id;
+  if (company) {
+    const body = req.body;
+    companyModel.upDate(id, body);
+    return res.status(200).json(body);
+  }
+  return res.status(404).json({ error: "Company not found" });
+}; */
 
 const get = async (req, res) => {
   const company = await companyModel.get(req.params.id);
-  const id = req.params.id;
+  //const id = req.params.id;
   if (company) {
-    return res.status(200), json(company);
+    return res.status(200).json(company);
   }
   return res.status(404).json({ error: "Company not found" });
 };
