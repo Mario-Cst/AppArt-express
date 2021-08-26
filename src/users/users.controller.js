@@ -25,6 +25,12 @@ const getall = async (req, res) => {
         res.json(users);
 }
 
+const getallActive = async (req, res) => {
+  const users = await  UserModel.getall();
+  const usersActive = users.filter(user =>  user.active === true)
+  res.json(usersActive);
+}
+
 const update = async (req, res) => {
     const user = await UserModel.get(req.params.id)
     const id = (req.params.id)
@@ -58,6 +64,34 @@ const get = async (req, res) =>{
   
   }
 
+  const deactivate = async (req, res) => {
+    console.log(req.params.id);
+    const user = await UserModel.get(req.params.id)
+    const id = (req.params.id)
+    if (user) {
+        console.log("entre");
+        const active = false;
+        UserModel.update(id, {"active" : "false"});
+        return res.status(200).json("desativado");
+    }
+    
+    return res.status(400).json({error: "user no found"})
+  } 
+
+  const activate = async (req, res) => {
+    console.log(req.params.id);
+    const user = await UserModel.get(req.params.id)
+    const id = (req.params.id)
+    if (user) {
+        console.log("entre");
+        const active = false;
+        UserModel.update(id, {"active" : "true"});
+        return res.status(200).json("activate");
+    }
+    
+    return res.status(400).json({error: "user no found"})
+  } 
+
 
 module.exports = {
     create,
@@ -65,4 +99,7 @@ module.exports = {
     update,
     remove,
     get,
+    deactivate,
+    activate,
+    getallActive,
 }

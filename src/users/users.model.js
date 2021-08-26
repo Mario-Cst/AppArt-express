@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema({
       },
     role: { type: String, default: "user" },
     state: { type: Boolean, default: false },
+    active: { type: Boolean, default: true }, 
     dateCreate: { type: Date, default: Date.now },
     dateAct: { type: Date }
 
@@ -39,6 +40,7 @@ const update = async(id, body)  => {
     const user = await UserModel.findByIdAndUpdate(id,body)
     return user
 }
+
 
 const remove  = async(id) => {
     const user  = await UserModel.findByIdAndRemove(id);
