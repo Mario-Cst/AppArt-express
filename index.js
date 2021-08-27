@@ -3,6 +3,17 @@ const { json, urlencoded } = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
+const mongoose = require("mongoose");
+const van = require("./src/vans/vans.router");
+
+require("dotenv").config();
+
+const options = { useNewUrlParser: true, useUnifiedTopology: true };
+const mongo = mongoose.connect(process.env.DB_HOST, options);
+
+mongo.then(() => {
+  console.log("Ready");
+});
 
 global.appRoot = path.resolve(__dirname);
 
@@ -12,16 +23,12 @@ app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
-app.disable(cors("x-powered-by"));
-
-app.get("/test", (request, response) => {
-  response.send("Soy un test de Appart");
-});
+app.use("/van", van);
 
 const start = async () => {
   try {
-    app.listen(5000, () => {
-      console.log("REST API on http://localhost:5000, AppArt is running!!");
+    app.listen(process.env.PORT || 5000, () => {
+      console.log(`REST API on http://localhost:${process.env.PORT || 5000}/`);
     });
   } catch (e) {
     console.error(e);
