@@ -27,19 +27,20 @@ const search = async (query) => await DeviceModel.find(query);
 
 const update = async (id, updatedDevice) => {
   const query = { _id: id };
-  DeviceModel.updateOne(query, updatedDevice, function (err, device) {
-    err ? console.log(err) : console.log("Updated Device: ", device);
+  DeviceModel.updateOne(query, updatedDevice, function (err, docs) {
+    err ? console.log(err) : console.log("Updated Device: ", docs);
   });
 };
 
 const remove = (id) => {
   const query = { _id: id };
-  DeviceModel.deleteOne(query, function (err, device) {
+  DeviceModel.deleteOne(query, function (err, docs) {
     if (err) {
       console.log(err);
-    } else {
-      console.log("Deleted Device : ", device);
+      return;
     }
+    console.log("Deleted Device : ", docs);
+    return;
   });
 };
 
