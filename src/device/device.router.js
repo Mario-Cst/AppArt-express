@@ -4,8 +4,8 @@ const router = express.Router();
 
 router
   .route("/")
-  .post(deviceController.createOneDevice)
-  .get(deviceController.getAllDevices);
+  .get(deviceController.getAllDevices)
+  .post(deviceController.createOneDevice);
 
 router
   .route("/:id")
