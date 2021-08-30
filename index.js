@@ -1,13 +1,13 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const { json, urlencoded } = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
+require("dotenv").config();
 const users = require("./src/users/users.router");
 const van = require("./src/vans/vans.router");
 const device = require("./src/device/device.router");
-const mongoose = require("mongoose");
-require("dotenv").config();
 
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 const mongo = mongoose.connect(process.env.DB_HOST, options);
