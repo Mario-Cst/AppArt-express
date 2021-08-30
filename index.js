@@ -5,6 +5,7 @@ const cors = require("cors");
 const path = require("path");
 require('dotenv').config();
 const users = require("./src/users/users.router")
+const  auth = require("./src/auth/auth.router")
 const van = require("./src/vans/vans.router");
 const mongoose = require ("mongoose");
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
@@ -30,6 +31,7 @@ app.use(morgan("dev"));
 app.disable(cors("x-powered-by"));
 app.use('/users', users);
 app.use("/van", van);
+app.use("/auth", auth);
 
 app.get("/test", (request, response) => {
   response.send("Soy un test de Appart");
