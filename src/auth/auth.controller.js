@@ -1,0 +1,26 @@
+const UserModel = require("../users/users.model");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const login = async (req, res) => {
+    
+    const user = await UserModel.search({
+    email: req.body.email,
+  });
+  if (user) {
+    const result = await bcrypt.compare(req.body.password, user.password);
+    if (result) {
+      const token = jwt.sign({id: user.id}, process.env.TOKEN_SECRET);
+      console.log(jwt.decode(token));
+      return res.json(token);
+    } else {
+      return res.status(401).json("an error has occurred");
+    }
+  }
+  return res.status(400).json("an error has occurred");
+};
+
+module.exports = {
+  login,
+};
+
