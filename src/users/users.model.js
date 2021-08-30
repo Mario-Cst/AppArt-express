@@ -47,10 +47,17 @@ const remove  = async(id) => {
     return user; 
 }
 
+
+const search = async (query) => {
+    const user = await UserModel.findOne(query);
+    return user;
+  };
+
 module.exports = {
     create,
     getall,
     get,
     update,
     remove, 
+    search,
 };
