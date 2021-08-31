@@ -5,12 +5,13 @@ const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
 
-require('dotenv').config();
-const users = require("./src/users/users.router")
-const  auth = require("./src/auth/auth.router")
+require("dotenv").config();
+const users = require("./src/users/users.router");
+const auth = require("./src/auth/auth.router");
 
 const van = require("./src/vans/vans.router");
 const device = require("./src/device/device.router");
+const company = require("./src/company/company.router");
 
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 const mongo = mongoose.connect(process.env.DB_HOST, options);
@@ -31,7 +32,7 @@ app.use("/users", users);
 app.use("/van", van);
 app.use("/device", device);
 app.use("/auth", auth);
-
+app.use("/company", company);
 
 app.get("/test", (request, response) => {
   response.send("Soy un test de Appart");
