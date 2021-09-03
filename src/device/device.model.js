@@ -3,13 +3,14 @@ const mongoose = require("mongoose");
 const deviceSchema = mongoose.Schema({
   brand: String,
   model: String,
-  number: String,
-  imei: String,
+  number: { type: String, required: true, unique: true },
+  imei: { type: String, required: true, unique: true },
   driversList: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "drivers",
+    required: true,
   },
-  status: Boolean,
+  status: { type: String, required: true },
 });
 
 const DeviceModel = mongoose.model("deviceModel", deviceSchema);
