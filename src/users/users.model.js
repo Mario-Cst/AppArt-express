@@ -16,8 +16,16 @@ const UserSchema = new mongoose.Schema({
     state: { type: Boolean, default: false },
     active: { type: Boolean, default: true }, 
     dateCreate: { type: Date, default: Date.now },
-    dateAct: { type: Date }
-
+    dateAct: { type: Date },
+    imgUrl: { type: String},
+    addressUser: { type: String},
+    cityUser: { type: String},
+    idUser: { type: String},
+    gender: {
+        type: String,
+        enum: ["male", "female", "other"]
+    },
+    ssId: { type: String}
 });
 const UserModel = mongoose.model("users", UserSchema);
 

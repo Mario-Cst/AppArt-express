@@ -14,6 +14,12 @@ const create = async (req, res) =>{
       phoneUser: req.body.phoneUser,
       phoneEnterprise: req.body.phoneEnterprise,
       enterprise: req.body.enterprise,
+      imgUrl: req.body.imgUrl,
+      addressUser: req.body.addressUser,
+      cityUser: req.body.cityUser,
+      idUser: req.body.idUser,
+      gender: req.body.gender,
+      ssId: req.body.ssId,
       password: bcrypt.hashSync(req.body.password, salt),
     });
     const token = jwt.sign({id: user.id},process.env.TOKEN_SECRET);
